@@ -5,6 +5,17 @@ function renderCartContents() {
   const cartItems = Array.isArray(storedCart) ? storedCart : [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  renderCartTotal(cartItems);
+}
+
+function renderCartTotal(cartItems) {
+  if (cartItems.length === 0) {
+    return;
+  }
+  const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+  document.querySelector('.cart-footer').classList.remove('hide');
+  document.querySelector('.cart-total').innerHTML =
+    `Total: $${total.toFixed(2)}`;
 }
 
 function cartItemTemplate(item) {
